@@ -1,0 +1,55 @@
+
+<div class="d-flex">
+    <div class="sidebar d-flex flex-column p-5" style="height: 88vh;width: 250px; background-color:  rgb(5, 5, 108);">
+      <a routerLink="/dashboard" style="text-decoration: none; color: white; margin-top: 20px;">Dashboard</a>
+      <a routerLink="/employees" style="text-decoration: none; color: white;  margin-top: 20px;">Employee List</a>
+    </div>
+    <div class="dashboard p-3 w-100">
+        <div class="d-flex justify-content-between ">
+            <h2 style="color: rgb(7, 7, 159);">Employee List</h2>
+            <a routerLink="/employee/add" style="text-decoration: none;" class="btn btn-outline-secondary pt-2"><i class="fa-solid fa-user-plus me-2"></i>Add</a>
+        </div>
+        <div class="d-flex justify-content-center align-items-center flex-column mt-5 ">
+           <div class="d-flex justify-content-between w-100">
+               <div class="d-flex w-75">
+                   <input type="text" class="form-control me-2" placeholder="Username">
+                   <div class="dropdown w-100">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                     sort
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </div>
+               </div>
+               <button class="btn btn-success">Export</button>
+           </div>
+           <table class="table table-bordered border-primary shadow mt-5 rounded">
+                <thead>
+                    <tr class="p-4 table-active">
+                        <th  class="py-4 text-center">User ID</th>
+                        <th  class="py-4 text-center">User Name</th>
+                        <th  class="py-4 text-center">Email</th>
+                        <th  class="py-4 text-center">Status</th>
+                        <th  class="py-4 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">NEEL</td>
+                        <td class="text-center">neel@gmail.com</td>
+                        <td class="text-center">active</td>
+                        <td class="text-center">
+                            <a routerLink="/employee/edit/:id" class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></a>
+                            <a class="btn btn-outline-danger ms-3 " ><i class="fa-solid fa-trash"></i></a>
+   
+                        </td>
+                    </tr>
+                </tbody>
+           </table>
+        </div>
+    </div>
+</div>
