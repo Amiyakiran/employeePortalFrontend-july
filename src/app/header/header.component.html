@@ -4,5 +4,6 @@
         <i class="fa-solid fa-users-gear fa-2x me-2"></i>
         <b>EMPLOYEE - PORTAL</b>
       </a>
+      <button *ngIf="logged" class="btn" (click)="logout()"><i class="fa-solid fa-power-off text-light"></i></button>
     </div>
   </nav>

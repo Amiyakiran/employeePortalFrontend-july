@@ -12,19 +12,20 @@
         <div class="d-flex justify-content-center align-items-center flex-column mt-5 ">
            <div class="d-flex justify-content-between w-100">
                <div class="d-flex w-75">
-                   <input type="text" class="form-control me-2" placeholder="Username">
+                   <input type="text" class="form-control me-2" placeholder="Username" name="search" [(ngModel)]="searchkey">
+
                    <div class="dropdown w-100">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                      sort
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      <li><a class="dropdown-item" (click)="sortId()">by Id</a></li>
+                      <li><a (click)="sortName()" class="dropdown-item">By Name</a></li>
+                      
                     </ul>
                   </div>
                </div>
-               <button class="btn btn-success">Export</button>
+               <button (click)="generatePdf()" class="btn btn-success">Export</button>
            </div>
            <table class="table table-bordered border-primary shadow mt-5 rounded">
                 <thead>
@@ -37,19 +38,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="text-center">1</td>
-                        <td class="text-center">NEEL</td>
-                        <td class="text-center">neel@gmail.com</td>
-                        <td class="text-center">active</td>
+                    <tr *ngFor="let employee of allEmployee | search :searchkey | paginate: { itemsPerPage: 6,currentPage: p}" [hidden]="employee.id=='1'">
+                        <td class="text-center">{{employee.id}}</td>
+                        <td class="text-center">{{employee.name}}</td>
+                        <td class="text-center">{{employee.email}}</td>
+                        <td class="text-center"><span [ngClass]="employee.status=='1'?'btn btn-success ': 'btn btn-warning'">{{employee.status=='1'?'Active':'InActive'}}</span></td>
                         <td class="text-center">
-                            <a routerLink="/employee/edit/:id" class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></a>
-                            <a class="btn btn-outline-danger ms-3 " ><i class="fa-solid fa-trash"></i></a>
+                            <a routerLink="/employee/edit/{{employee.id}}" class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></a>
+                            <a (click)="removeEmployee(employee.id)" class="btn btn-outline-danger ms-3 " ><i class="fa-solid fa-trash"></i></a>
    
                         </td>
                     </tr>
                 </tbody>
            </table>
+           <pagination-controls class="fixed-bottom text-center"
+           (pageChange)="p=$event">
+         </pagination-controls>
         </div>
     </div>
 </div>

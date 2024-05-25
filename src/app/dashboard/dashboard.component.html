@@ -1,8 +1,65 @@
 <div class="d-flex">
-    <div class="sidebar d-flex flex-column p-5" style="height: 88vh;width: 250px; background-color:  rgb(5, 5, 108);;">
+    <div *ngIf="showSideBar" class="sidebar d-flex flex-column p-5" style="height: 88vh;width: 250px; background-color:  rgb(5, 5, 108);">
       <a routerLink="/dashboard" style="text-decoration: none; color: white; margin-top: 20px;">Dashboard</a>
-      <a routerLink="/employees" style="text-decoration: none; color: white;  margin-top: 20px;">Employee List</a></div>
-    <div class="dashboard p-3">
-        <h2>Welcome Admin</h2>
+      <a routerLink="/employees" style="text-decoration: none; color: white;  margin-top: 20px;">Employee List</a>
+    </div>
+    <div class="dashboard p-3 w-100" style="height: 88vh;">
+       <div class="row w-100">
+        <div class="col-md-8">
+          <div class="row w-100">
+            <div class="col-md-12 rounded d-flex align-items-center ms-3" style="background-color: rgb(26, 197, 197); height: 150px;">
+              <h2 class="text-light"><i (click)="menuBar()" class="fa-solid fa-bars me-3"></i>Welcome {{adminName}}</h2>
+            </div>
+          </div>
+          <div class="row mt-3 mx-3 ">
+            <div class="col-md-5 shadow rounded" style="height:430px ;">
+             <p class="mb-3 mt-2"> calender</p>
+              <mat-card class="demo-inline-calendar-card">
+                <mat-calendar [(selected)]="selected"></mat-calendar>
+              </mat-card>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-6 shadow rounded">
+
+              <highcharts-chart
+                [Highcharts]="Highcharts"
+                [options]="chartOptions"
+                style="width: 100%; height: 400px; display: block;"
+              ></highcharts-chart>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6"></div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="rounded d-flex align-items-center justify-content-center flex-column w-100" style="height: 430px; background-color: aquamarine;">
+            <img *ngIf="!EditAdminStatus" [src]="profileImage" alt="" width="150px" height="150px" style="border-radius: 50%;">
+            <button *ngIf="!EditAdminStatus" class="btn mt-3" (click)="edit()">Edit Admin Details <i class="fa-solid fa-pen-nib"></i></button>
+            <div *ngIf="EditAdminStatus" class="d-flex align-items-center justify-content-center flex-column w-100 p-4">
+                <h1>Update Admin Details</h1>
+               <label>
+                <input (change)="getFile($event)" type="file" style="display: none;">
+                <img [src]="profileImage" alt="" width="150px" height="150px" style="border-radius: 50%;">
+               </label>
+                <input [(ngModel)]="adminDetails.name" name="adname" type="text" placeholder="Name" class="form-control mt-3" required pattern="^[a-zA-Z]{3,}$" #adminname="ngModel">
+                <span *ngIf="adminname.invalid && adminname.touched" class="text-danger">Invalid username</span>
+                <input [(ngModel)]="adminDetails.password" name="adpswd" type="text" placeholder="Password" class="form-control mt-3" #Adminpswd="ngModel" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,}$">
+                <span *ngIf="Adminpswd.invalid && Adminpswd.touched" class="text-danger">Invalid password</span>
+                <div class="d-flex justify-content-between mt-3 w-100">
+                  <button class="btn btn-outline-warning" (click)="cancel()">Cancel</button>
+                  <button class="btn btn-outline-success" (click)="updateAdmin()">Update</button>
+                </div>
+            </div>
+          </div>
+
+
+          <div class="mt-3 d-flex align-items-center justify-content-center rounded" style="height: 150px; background-color: rgb(216, 245, 245);">
+              <h1 style="color: rgb(5, 5, 108);"> <i class="fa-solid fa-users me-2"></i> Employees : {{employeeCount}}</h1>
+          </div>
+        </div>
+       </div>
     </div>
 </div>
